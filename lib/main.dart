@@ -165,47 +165,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
           ],
         )
-
-        /*SingleChildScrollView(
-            child: Column(children: [
-          Container(
-              height: 400,
-              width: 200,
-              color: Colors.yellow,
-              child: Text("Coucou", style: TextStyle(color: Colors.blue))),
-          Container(
-              height: 400,
-              width: 200,
-              color: Colors.red,
-              child: Text("Coucou", style: TextStyle(color: Colors.blue))),
-          Container(
-              height: 400,
-              width: 200,
-              color: Colors.blue,
-              child: Text("Coucou", style: TextStyle(color: Colors.blue))),
-          Container(
-              height: 400,
-              width: 200,
-              color: Colors.red,
-              child: Text("Coucou", style: TextStyle(color: Colors.blue)))
-        ]))
-
-        Image.asset()
-      
-      TextField(
-        obscureText:true
-      
-      )
-      
-      
-      Container(
-          height : 400,
-          width : 200,
-          color: Colors.yellow,
-          child : Text("Coucou", style : TextStyle(color: Colors.blue))
-      
-      )*/
-
-        );
+      );
   }
 }

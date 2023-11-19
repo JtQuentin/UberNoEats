@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
 
 class MyFirestoreHelper {
@@ -61,5 +62,24 @@ class MyFirestoreHelper {
         await storage.ref("$dossier/$uid/$nameImage").putData(datasImage);
     String url = await snapshot.ref.getDownloadURL();
     return url;
+  }
+
+
+  // Partie messagerie
+  Future<MyChat> getMessage(String id) async {
+    DocumentSnapshot snapshot = await cloudMessage.doc(id).get();
+    return MyChat.dataBase(snapshot);
+  }
+
+  addMessage(String id, Map<String, dynamic> data) {
+    cloudMessage.doc(id).set(data);
+  }
+
+  updateMessage(String id, Map<String, dynamic> data) {
+    cloudMessage.doc(id).update(data);
+  }
+
+  deleteMessage(String id) {
+    cloudMessage.doc(id).delete();
   }
 }

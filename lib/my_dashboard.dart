@@ -85,6 +85,8 @@ class _MyDashboardState extends State<MyDashboard> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.person), label: "Personne"),
             BottomNavigationBarItem(
+                icon: Icon(Icons.chat), label: "Messagerie"),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.rocket_launch), label: "Machine Learning")
           ],
           onTap: (value) {
@@ -224,6 +226,8 @@ class _MyDashboardState extends State<MyDashboard> {
       case 1:
         return const MyAllPerson();
       case 2:
+        return const MyAllPerson();
+      case 3:
         return const MLView();
       default:
         return const Text("Impossible");

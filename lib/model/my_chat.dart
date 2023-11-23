@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_app/globale.dart';
 
 class MyChat {
   late String id;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:my_app/controller/my_firestore_helper.dart';
 import 'package:my_app/globale.dart';
 import 'package:my_app/model/my_user.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class MyAllPerson extends StatefulWidget {
   const MyAllPerson({super.key});

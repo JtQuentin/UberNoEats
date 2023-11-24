@@ -17,6 +17,7 @@ class MyChatingView extends StatefulWidget {
 
 class _MyChatingView extends State<MyChatingView> {
   final TextEditingController _messageController = TextEditingController();
+  List<ChatMessage> messages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +40,11 @@ class _MyChatingView extends State<MyChatingView> {
                     return Center(child: Text("Aucun message avec ${widget.dest.fullName}"));
                   } else {
                     List documents = snap.data!.docs;
-                    List<ChatMessage> messages = documents
-                        .map((doc) => ChatMessage.fromFirestore(doc))
-                        .toList();
+                    setState(() {
+                      messages = documents
+                          .map((doc) => ChatMessage.fromFirestore(doc))
+                          .toList();
+                    });
                     return ListView.builder(
                       itemCount: messages.length,
                       reverse: true,
@@ -79,7 +82,7 @@ class _MyChatingView extends State<MyChatingView> {
                   child: TextField(
                     controller: _messageController,
                     decoration: InputDecoration(
-                      hintText: 'Type a message',
+                      hintText: 'Entrez votre message',
                     ),
                   ),
                 ),
@@ -88,7 +91,7 @@ class _MyChatingView extends State<MyChatingView> {
                   onPressed: () async {
                     if (_messageController.text.isNotEmpty) {
                       ChatMessage message = ChatMessage(
-                        id: '', // Firestore will auto-generate this
+                        id: '', // document id auto-generate by Firestore
                         senderId: moi.uid,
                         receiverId: widget.dest.uid,
                         message: _messageController.text,
@@ -96,6 +99,14 @@ class _MyChatingView extends State<MyChatingView> {
                       );
                       await MyFirestoreHelper().sendMessage(message);
                       _messageController.clear();
+
+                      // mise à jour de la liste des messages après l'envoi
+                      List<ChatMessage> updatedMessages = List.from(messages);
+                      updatedMessages.insert(0, message);
+
+                      setState(() {
+                        messages = updatedMessages;
+                      });
                     }
                   },
                 ),

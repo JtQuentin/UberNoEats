@@ -6,10 +6,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MyFirestoreHelper {
   //gérer les opérations dans la BDD
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   //attributs
   final auth = FirebaseAuth.instance;
   final cloudUsers = FirebaseFirestore.instance.collection("UTILISATEURS");
@@ -49,18 +51,17 @@ class MyFirestoreHelper {
   //connexion d'un utilisateur
   Future<MyUser> ConnectUserDataBase(String email, String password) async {
     UserCredential credential =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
+    await auth.signInWithEmailAndPassword(email: email, password: password);
     String uid = credential.user!.uid;
     return getUser(uid);
   }
 
-  Future<String> StorageFiles(
-      {required Uint8List datasImage,
-      required String nameImage,
-      required String dossier,
-      required String uid}) async {
+  Future<String> StorageFiles({required Uint8List datasImage,
+    required String nameImage,
+    required String dossier,
+    required String uid}) async {
     TaskSnapshot snapshot =
-        await storage.ref("$dossier/$uid/$nameImage").putData(datasImage);
+    await storage.ref("$dossier/$uid/$nameImage").putData(datasImage);
     String url = await snapshot.ref.getDownloadURL();
     return url;
   }
@@ -86,7 +87,7 @@ class MyFirestoreHelper {
 
 
   Future<void> sendMessage(ChatMessage message) {
-    return _firestore.collection('Messages').add({
+    return _firestore.collection('MESSAGES').add({
       'senderId': message.senderId,
       'receiverId': message.receiverId,
       'message': message.message,
@@ -94,15 +95,17 @@ class MyFirestoreHelper {
     });
   }
 
-  // Stream to listen for messages
-  Stream<QuerySnapshot> getMessages(String senderId, String receiverId) {
-    return FirebaseFirestore.instance
-        .collection('Messages')
-        .where('senderId', isEqualTo: senderId)
-        .where('receiverId', isEqualTo: receiverId)
-        .orderBy('timestamp', descending: true)
-        .snapshots();
+  Stream<QuerySnapshot> getMessages(String user1Id, String user2Id) {
+    Query query1 = _firestore
+        .collection('MESSAGES')
+        .where('senderId', isEqualTo: user1Id)
+        .where('receiverId', isEqualTo: user2Id);
+
+    Query query2 = _firestore
+        .collection('MESSAGES')
+        .where('senderId', isEqualTo: user2Id)
+        .where('receiverId', isEqualTo: user1Id);
+
+    return query1.snapshots().asBroadcastStream().mergeWith([query2.snapshots()]);
   }
-
-
 }

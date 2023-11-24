@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/controller/my_firestore_helper.dart';
 import 'package:my_app/globale.dart';
 import 'package:my_app/view/my_all_person.dart';
+import 'package:my_app/view/my_chating_list.dart';
 import 'package:my_app/view/my_check_map.dart';
 import 'package:my_app/view/my_map.dart';
 
@@ -84,6 +85,8 @@ class _MyDashboardState extends State<MyDashboard> {
             BottomNavigationBarItem(icon: Icon(Icons.map), label: "Carte"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person), label: "Personne"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat), label: "Messagerie"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.rocket_launch), label: "Machine Learning")
           ],
@@ -224,6 +227,8 @@ class _MyDashboardState extends State<MyDashboard> {
       case 1:
         return const MyAllPerson();
       case 2:
+        return const MyChatingList();
+      case 3:
         return const MLView();
       default:
         return const Text("Impossible");

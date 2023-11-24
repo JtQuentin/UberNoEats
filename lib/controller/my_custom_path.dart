@@ -14,9 +14,12 @@ class MyCustomPath extends CustomClipper<Path> {
     return path;
   }
 
+
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    // TODO: implement shouldReclip
-    throw UnimplementedError();
+    // Add logic to determine if reclip is necessary based on your app's requirement
+    // For example, return true if you always want to reclip, or add custom logic
+    return true;
   }
+
 }

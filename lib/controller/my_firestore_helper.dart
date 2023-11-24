@@ -3,12 +3,13 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
 
 class MyFirestoreHelper {
   //gérer les opérations dans la BDD
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   //attributs
   final auth = FirebaseAuth.instance;
   final cloudUsers = FirebaseFirestore.instance.collection("UTILISATEURS");
@@ -82,4 +83,26 @@ class MyFirestoreHelper {
   deleteMessage(String id) {
     cloudMessage.doc(id).delete();
   }
+
+
+  Future<void> sendMessage(ChatMessage message) {
+    return _firestore.collection('Messages').add({
+      'senderId': message.senderId,
+      'receiverId': message.receiverId,
+      'message': message.message,
+      'timestamp': message.timestamp,
+    });
+  }
+
+  // Stream to listen for messages
+  Stream<QuerySnapshot> getMessages(String senderId, String receiverId) {
+    return FirebaseFirestore.instance
+        .collection('Messages')
+        .where('senderId', isEqualTo: senderId)
+        .where('receiverId', isEqualTo: receiverId)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
+
+
 }

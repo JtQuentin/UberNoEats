@@ -15,9 +15,16 @@ class MyChat {
 
   MyChat.dataBase(DocumentSnapshot snapshot) {
     id = snapshot.id;
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    dest = data["DEST"];
-    exp = data["EXP"];
-    message = data["MESSAGE"];
+
+    // Check if snapshot data is a Map
+    var data = snapshot.data();
+    if (data is! Map<String, dynamic>) {
+      throw FormatException("Snapshot data is not a Map<String, dynamic>");
+    }
+
+    // Safely retrieve values, providing default values for missing/null fields
+    dest = data["DEST"] ?? "default_dest"; // Replace 'default_dest' with an appropriate default
+    exp = data["EXP"] ?? "default_exp"; // Replace 'default_exp' with an appropriate default
+    message = data["MESSAGE"] ?? "default_message"; // Replace 'default_message' with an appropriate default
   }
 }

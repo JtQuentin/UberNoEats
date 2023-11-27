@@ -5,7 +5,6 @@ import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 class MyChatingView extends StatefulWidget {
   final MyUser dest;
 
@@ -14,10 +13,17 @@ class MyChatingView extends StatefulWidget {
   @override
   State<MyChatingView> createState() => _MyChatingView();
 }
-
 class _MyChatingView extends State<MyChatingView> {
   final TextEditingController _messageController = TextEditingController();
   List<ChatMessage> messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,31 +46,40 @@ class _MyChatingView extends State<MyChatingView> {
                     return Center(child: Text("Aucun message avec ${widget.dest.fullName}"));
                   } else {
                     List documents = snap.data!.docs;
-                    setState(() {
-                      messages = documents
-                          .map((doc) => ChatMessage.fromFirestore(doc))
-                          .toList();
-                    });
+                    messages = documents
+                        .map((doc) => ChatMessage.fromFirestore(doc))
+                        .toList();
                     return ListView.builder(
                       itemCount: messages.length,
                       reverse: true,
                       itemBuilder: (context, index) {
                         ChatMessage message = messages[index];
-                        bool isMyMessage = message.senderId == moi.uid;
-
-                        return Align(
-                          alignment: isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: isMyMessage ? Colors.blue : Colors.grey,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              message.message,
-                              style: TextStyle(color: Colors.white),
-                            ),
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: message.senderId == moi.uid
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: message.senderId == moi.uid
+                                      ? Colors.blue
+                                      : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  message.message,
+                                  style: TextStyle(
+                                    color: message.senderId == moi.uid
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       },
@@ -118,3 +133,4 @@ class _MyChatingView extends State<MyChatingView> {
     );
   }
 }
+

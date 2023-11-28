@@ -37,7 +37,10 @@ class _MyChatingList extends State<MyChatingList> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MyChatingView(dest: otherUser),
+                            builder: (context) => MyChatingView(
+                              dest: otherUser,
+                              receiverUserID: '',
+                            ),
                           ),
                         );
                       },
@@ -55,8 +58,8 @@ class _MyChatingList extends State<MyChatingList> {
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 68,
-                              backgroundImage:
-                                  NetworkImage(otherUser.avatar ?? imageDefault),
+                              backgroundImage: NetworkImage(
+                                  otherUser.avatar ?? imageDefault),
                             ),
                             title: Text(otherUser.fullName),
                             subtitle: Text(otherUser.email),

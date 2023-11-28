@@ -116,7 +116,7 @@ class MyFirestoreHelper {
         .collection('chat_rooms')
         .doc(chatRoomId)
         .collection('MESSAGES')
-        .orderBy('timestamp', descending: true)
+        .orderBy('timestamp', descending: false)
         .snapshots();
   }
 }

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:my_app/controller/MyPaymentHelper.dart';
 
 class MLView extends StatefulWidget {
   const MLView({super.key});
@@ -115,7 +116,13 @@ class _MLViewState extends State<MLView> {
             (imageData == null) ? Container() : Image.memory(imageData!),
             ElevatedButton(
                 onPressed: objetIdentification, child: Text("Etiquetage")),
-            Text(afficheLabel)
+            Text(afficheLabel),
+            ElevatedButton(
+              onPressed: () {
+                redirectToCheckout(context);
+              },
+              child: Text('Payer avec Stripe'),
+            )
           ],
         ),
       ),

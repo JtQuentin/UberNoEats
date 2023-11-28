@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class MyCustomPath extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    // TODO: implement getClip
     Path path = Path();
     path.lineTo(0, size.height * 0.66);
     path.quadraticBezierTo(size.width * 0.33, size.height * 0.5,
@@ -14,9 +13,12 @@ class MyCustomPath extends CustomClipper<Path> {
     return path;
   }
 
+
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    // TODO: implement shouldReclip
-    throw UnimplementedError();
+    // Add logic to determine if reclip is necessary based on your app's requirement
+    // For example, return true if you always want to reclip, or add custom logic
+    return true;
   }
+
 }

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app/controller/my_firestore_helper.dart';
 import 'package:my_app/globale.dart';
 import 'package:my_app/view/my_all_person.dart';
+import 'package:my_app/view/my_chating_list.dart';
 import 'package:my_app/view/my_check_map.dart';
-import 'package:my_app/view/my_map.dart';
 
 import 'view/my_ml_view.dart';
 
@@ -80,6 +80,8 @@ class _MyDashboardState extends State<MyDashboard> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: indexCurrent,
+          selectedItemColor: Color(0xFF73e1be),
+          unselectedItemColor: Colors.grey,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.map), label: "Carte"),
             BottomNavigationBarItem(
@@ -98,7 +100,7 @@ class _MyDashboardState extends State<MyDashboard> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width * 0.35,
         decoration: const BoxDecoration(
-            color: Colors.purple,
+            color: Colors.grey,
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(85),
                 topRight: Radius.circular(85))),
@@ -226,7 +228,7 @@ class _MyDashboardState extends State<MyDashboard> {
       case 1:
         return const MyAllPerson();
       case 2:
-        return const MyAllPerson();
+        return const MyChatingList();
       case 3:
         return const MLView();
       default:

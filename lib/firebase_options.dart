@@ -44,37 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCqkY2x5Xo0TTXJ8Sr-7mIwW-rR0VwHjGk',
-    appId: '1:768865102547:web:f5aeebca67123adacc4226',
-    messagingSenderId: '768865102547',
-    projectId: 'flutter-67fc8',
-    authDomain: 'flutter-67fc8.firebaseapp.com',
-    storageBucket: 'flutter-67fc8.appspot.com',
+    apiKey: 'AIzaSyDY8bLeHCw-jAzkxlUimCPtQZvXS0uyJvE',
+    appId: '1:787688906709:web:1eef49c653dbe11b78e75c',
+    messagingSenderId: '787688906709',
+    projectId: 'efreifluttercours1',
+    authDomain: 'efreifluttercours1.firebaseapp.com',
+    storageBucket: 'efreifluttercours1.appspot.com',
+    measurementId: 'G-X5ML9TZSSS',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB_Q5KkAPr-ajdcmnPNUxX8aK1uWn3-oqI',
-    appId: '1:768865102547:android:efdde5ee368412decc4226',
-    messagingSenderId: '768865102547',
-    projectId: 'flutter-67fc8',
-    storageBucket: 'flutter-67fc8.appspot.com',
+    apiKey: 'AIzaSyBkL46wOqX08fvqEpSRYjGHwHLBVWfQi_s',
+    appId: '1:787688906709:android:bc8f7b598824dc9678e75c',
+    messagingSenderId: '787688906709',
+    projectId: 'efreifluttercours1',
+    storageBucket: 'efreifluttercours1.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB5I1xoRo-EWWqsqjGgqKAXD-pX0_GRWjk',
-    appId: '1:768865102547:ios:32d3e963335acee8cc4226',
-    messagingSenderId: '768865102547',
-    projectId: 'flutter-67fc8',
-    storageBucket: 'flutter-67fc8.appspot.com',
+    apiKey: 'AIzaSyCuBp_71wGqG4EmkRQQGrbiXvHJXxgYtQI',
+    appId: '1:787688906709:ios:1004bb100f6a28d378e75c',
+    messagingSenderId: '787688906709',
+    projectId: 'efreifluttercours1',
+    storageBucket: 'efreifluttercours1.appspot.com',
     iosBundleId: 'com.example.myApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB5I1xoRo-EWWqsqjGgqKAXD-pX0_GRWjk',
-    appId: '1:768865102547:ios:1f1c6c0b582f5359cc4226',
-    messagingSenderId: '768865102547',
-    projectId: 'flutter-67fc8',
-    storageBucket: 'flutter-67fc8.appspot.com',
+    apiKey: 'AIzaSyCuBp_71wGqG4EmkRQQGrbiXvHJXxgYtQI',
+    appId: '1:787688906709:ios:4c44e5266c74315b78e75c',
+    messagingSenderId: '787688906709',
+    projectId: 'efreifluttercours1',
+    storageBucket: 'efreifluttercours1.appspot.com',
     iosBundleId: 'com.example.myApp.RunnerTests',
   );
 }

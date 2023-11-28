@@ -3,11 +3,14 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:my_app/globale.dart';
+import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
 
 class MyFirestoreHelper {
   //gérer les opérations dans la BDD
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //attributs
   final auth = FirebaseAuth.instance;
@@ -64,7 +67,6 @@ class MyFirestoreHelper {
     return url;
   }
 
-
   // Partie messagerie
   Future<MyChat> getMessage(String id) async {
     DocumentSnapshot snapshot = await cloudMessage.doc(id).get();
@@ -81,5 +83,40 @@ class MyFirestoreHelper {
 
   deleteMessage(String id) {
     cloudMessage.doc(id).delete();
+  }
+
+  Future<void> sendMessage(String receiverId, String message) async {
+    final String currentUserId = moi.uid;
+    final Timestamp timestamp = Timestamp.now();
+
+    ChatMessage newMessage = ChatMessage(
+      senderId: currentUserId,
+      receiverId: receiverId,
+      timestamp: timestamp,
+      message: message,
+    );
+
+    List<String> ids = [currentUserId, receiverId];
+    ids.sort();
+    String chatRoomId = ids.join("_");
+
+    await _firestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('MESSAGES')
+        .add(newMessage.toMap());
+  }
+
+  Stream<QuerySnapshot> getMessages(String userId, String otherUserId) {
+    List<String> ids = [userId, otherUserId];
+    ids.sort();
+    String chatRoomId = ids.join("_");
+
+    return _firestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('MESSAGES')
+        .orderBy('timestamp', descending: false)
+        .snapshots();
   }
 }

@@ -8,7 +8,6 @@ class ChatUser {
   ChatUser({
     required this.id,
     required this.name,
-    // Initialize other fields if added
   });
 
   // Factory constructor for creating a ChatUser from a Firestore document
@@ -17,7 +16,6 @@ class ChatUser {
     return ChatUser(
       id: doc.id,
       name: data['name'] ?? '',
-      // Assign other fields if added
     );
   }
 
@@ -25,7 +23,6 @@ class ChatUser {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      // Add other fields to the map if necessary
     };
   }
 }

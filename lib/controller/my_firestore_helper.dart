@@ -3,17 +3,14 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:my_app/globale.dart';
 import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
-import 'package:rxdart/rxdart.dart';
 
 class MyFirestoreHelper {
   //gérer les opérations dans la BDD
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   //attributs
   final auth = FirebaseAuth.instance;
@@ -88,15 +85,6 @@ class MyFirestoreHelper {
     cloudMessage.doc(id).delete();
   }
 
-  // Future<void> sendMessage(ChatMessage message) {
-  //   return _firestore.collection('MESSAGES').add({
-  //     'senderId': message.senderId,
-  //     'receiverId': message.receiverId,
-  //     'message': message.message,
-  //     'timestamp': message.timestamp,
-  //   });
-  // }
-
   Future<void> sendMessage(String receiverId, String message) async {
     final String currentUserId = moi.uid;
     final Timestamp timestamp = Timestamp.now();
@@ -120,20 +108,6 @@ class MyFirestoreHelper {
   }
 
   Stream<QuerySnapshot> getMessages(String userId, String otherUserId) {
-    // Stream<QuerySnapshot> stream1 = _firestore
-    //     .collection('MESSAGES')
-    //     .where('senderId', isEqualTo: user1Id)
-    //     .where('receiverId', isEqualTo: user2Id)
-    //     .snapshots();
-
-    // Stream<QuerySnapshot> stream2 = _firestore
-    //     .collection('MESSAGES')
-    //     .where('senderId', isEqualTo: user2Id)
-    //     .where('receiverId', isEqualTo: user1Id)
-    //     .snapshots();
-
-    // return Rx.merge([stream1, stream2]).distinct();
-
     List<String> ids = [userId, otherUserId];
     ids.sort();
     String chatRoomId = ids.join("_");
@@ -142,7 +116,7 @@ class MyFirestoreHelper {
         .collection('chat_rooms')
         .doc(chatRoomId)
         .collection('MESSAGES')
-        .orderBy('timestamp', descending: false)
+        .orderBy('timestamp', descending: true)
         .snapshots();
   }
 }

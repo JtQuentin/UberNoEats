@@ -156,8 +156,7 @@ class _MyChatingViewState extends State<MyChatingView> {
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      await _chatService.sendMessage(
-          widget.receiverUserID, _messageController.text);
+      await _chatService.sendMessage(widget.dest.uid, _messageController.text);
       _messageController.clear();
     }
   }

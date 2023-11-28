@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:my_app/globale.dart';
 import 'package:my_app/model/chat_message.dart';
 import 'package:my_app/model/my_chat.dart';
 import 'package:my_app/model/my_user.dart';
@@ -97,7 +98,7 @@ class MyFirestoreHelper {
   // }
 
   Future<void> sendMessage(String receiverId, String message) async {
-    final String currentUserId = _firebaseAuth.currentUser!.uid;
+    final String currentUserId = moi.uid;
     final Timestamp timestamp = Timestamp.now();
 
     ChatMessage newMessage = ChatMessage(
@@ -118,7 +119,7 @@ class MyFirestoreHelper {
         .add(newMessage.toMap());
   }
 
-  Stream<QuerySnapshot> getMessages(String user1Id, String user2Id) {
+  Stream<QuerySnapshot> getMessages(String userId, String otherUserId) {
     // Stream<QuerySnapshot> stream1 = _firestore
     //     .collection('MESSAGES')
     //     .where('senderId', isEqualTo: user1Id)
@@ -133,7 +134,7 @@ class MyFirestoreHelper {
 
     // return Rx.merge([stream1, stream2]).distinct();
 
-    List<String> ids = [user1Id, user2Id];
+    List<String> ids = [userId, otherUserId];
     ids.sort();
     String chatRoomId = ids.join("_");
 

@@ -66,8 +66,8 @@ class _MyChatingView extends State<MyChatingView> {
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                   color: message.senderId == moi.uid
-                                      ? Colors.blue
-                                      : Colors.grey[300],
+                                      ? Color(0xFF4320dc)
+                                      : Color(0xFF73e1be),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(

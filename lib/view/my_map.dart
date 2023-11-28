@@ -22,7 +22,6 @@ class _MyMapState extends State<MyMap> {
   Set<Marker> allMarkers = Set();
   @override
   void initState() {
-    // TODO: implement initState
     myPositionMaps = CameraPosition(
         target: LatLng(widget.position.latitude, widget.position.longitude),
         zoom: 14);

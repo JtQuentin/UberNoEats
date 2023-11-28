@@ -25,7 +25,6 @@ class _MyMapState extends State<MyMap> {
 
   @override
   void initState() {
-    // TODO: implement initState
     myPositionMaps = CameraPosition(target: LatLng(widget.position.latitude,widget.position.longitude),zoom: 14);
     Map<String,dynamic> data = {
       "GPS":GeoPoint(widget.position.latitude,widget.position.longitude)

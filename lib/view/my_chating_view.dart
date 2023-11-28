@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/controller/my_firestore_helper.dart';
+import 'package:my_app/globale.dart';
 import 'package:my_app/model/my_user.dart' show MyUser;
 // import 'package:flutter/material.dart';
 // import 'package:my_app/controller/my_firestore_helper.dart';
@@ -178,8 +179,7 @@ class _MyChatingViewState extends State<MyChatingView> {
 
   Widget _buildMessageList() {
     return StreamBuilder(
-      stream: _chatService.getMessages(
-          widget.receiverUserID, _firebaseAuth.currentUser!.uid),
+      stream: _chatService.getMessages(widget.dest.uid, moi.uid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Error' + snapshot.error.toString());
@@ -199,7 +199,7 @@ class _MyChatingViewState extends State<MyChatingView> {
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    var alignment = (data['senderId'] == _firebaseAuth.currentUser!.uid)
+    var alignment = (data['senderId'] == moi.uid)
         ? Alignment.centerRight
         : Alignment.centerLeft;
     return Container(

@@ -51,7 +51,7 @@ class _MyChatingList extends State<MyChatingList> {
                         ),
                         child: Card(
                           elevation: 5,
-                          color: Colors.amberAccent,
+                          color: Color(0xFF4320dc),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -61,8 +61,18 @@ class _MyChatingList extends State<MyChatingList> {
                               backgroundImage: NetworkImage(
                                   otherUser.avatar ?? imageDefault),
                             ),
-                            title: Text(otherUser.fullName),
-                            subtitle: Text(otherUser.email),
+                            title: Text(
+                              otherUser.fullName,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            subtitle: Text(
+                              otherUser.email,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
